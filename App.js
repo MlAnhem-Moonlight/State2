@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, ImageBackground, Image, ScrollView, TextInput, KeyboardAvoidingView, Button } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ImageBackground, Image, ScrollView, TextInput, KeyboardAvoidingView, Button, Alert } from 'react-native';
 import React, { useState } from 'react';
 
 export default function App() {
@@ -8,7 +8,22 @@ export default function App() {
   const [textColor, settextColor] = useState('rgb(255, 0, 0)');
 
   const handlePress = () => {
-    setMessage('Tiếp tục')
+    if(textInput.length != 0)
+    {
+      if (/^\d+$/.test(textInput) && textInput.length === 10 && textInput[0] ==='0') {
+        
+        Alert.alert('SUCCESS','ĐÃ TẠO TÀI KHOẢN')
+      } 
+      else 
+      {
+        Alert.alert('ERROR','SỐ ĐIỆN THOẠI KHÔNG TỒN TẠI HOẶC KHÔNG HỢP LỆ')
+        
+      }
+    }
+    else 
+    {
+      Alert.alert('ERROR','VUI LÒNG NHẬP SỐ ĐIỆN THOẠI')
+    }
   }
 
   const handleTextChange = (text) => {
