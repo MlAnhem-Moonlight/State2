@@ -1,135 +1,142 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, ImageBackground, Image, ScrollView, TextInput, KeyboardAvoidingView, Button, Alert } from 'react-native';
-import React, { useState } from 'react';
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { StyleSheet, Image, Text, View, SafeAreaView, TextInput, KeyboardAvoidingView, Button, Alert } from 'react-native';
+import Header from './components/Header';
+import { useState } from 'react';
 
-export default function App() {
-  const [textInput,settextInput] = useState('');
+const Stack = createStackNavigator();
+
+function LoginScreen({ navigation }) {
+  const [textInput, setTextInput] = useState('');
   const [message, setMessage] = useState('');
-  const [textColor, settextColor] = useState('rgb(255, 0, 0)');
+  const [textColor, setTextColor] = useState('rgb(255, 0, 0)');
 
   const handlePress = () => {
-    if(textInput.length != 0)
-    {
-      if (/^\d+$/.test(textInput) && textInput.length === 10 && textInput[0] ==='0') {
-        
-        Alert.alert('SUCCESS','ĐÃ TẠO TÀI KHOẢN')
-      } 
-      else 
-      {
-        Alert.alert('ERROR','SỐ ĐIỆN THOẠI KHÔNG TỒN TẠI HOẶC KHÔNG HỢP LỆ')
-        
+    if (textInput.length != 0) {
+      const formattedText = textInput.replace(/\s/g, '');
+      if (/^\d+$/.test(formattedText) && formattedText.length === 10 && formattedText[0] === '0') {
+        Alert.alert('SUCCESS', 'CHÀO MỪNG ĐẾN VỚI HỆ THỐNG', [
+          {
+            text: 'OK',
+            onPress: () => navigation.reset({
+              index: 0,
+              routes: [{ name: 'Home' }],
+            }),
+          },
+        ]);
+      } else {
+        Alert.alert('ERROR', 'SỐ ĐIỆN THOẠI KHÔNG TỒN TẠI HOẶC KHÔNG HỢP LỆ');
       }
-    }
-    else 
-    {
-      Alert.alert('ERROR','VUI LÒNG NHẬP SỐ ĐIỆN THOẠI')
+    } else {
+      Alert.alert('ERROR', 'VUI LÒNG NHẬP SỐ ĐIỆN THOẠI');
     }
   }
 
   const handleTextChange = (text) => {
-    settextInput(text);
-    if(text.length != 0)
-    {
-      if (/^\d+$/.test(text) && text.length === 10 && text[0] ==='0') {
-        setMessage('Số điện thoại hợp lệ');
-        settextColor('rgb(0, 255, 0)');
-      } else {
-        setMessage('Số điện thoại không hợp lệ');
-        settextColor('rgb(255, 0, 0)');
-      }
+    let formattedText = text.replace(/[^\d]/g, '');
+    let displayText = formattedText;
+
+    if (formattedText.length > 4) {
+      displayText = `${formattedText.slice(0, 4)} ${formattedText.slice(4)}`;
     }
-    else setMessage('');
+    if (formattedText.length > 7) {
+      displayText = `${displayText.slice(0, 8)} ${displayText.slice(8)}`;
+    }
+
+    setTextInput(displayText);
+
+    if (formattedText.length === 10 && formattedText[0] === '0') {
+      setMessage('Số điện thoại hợp lệ');
+      setTextColor('rgb(0, 255, 0)');
+    } else {
+      setMessage('Số điện thoại không hợp lệ');
+      setTextColor('rgb(255, 0, 0)');
+    }
   }
 
   return (
     <SafeAreaView style={styles.container}>
-    <KeyboardAvoidingView style={styles.kbAview}>
-      <View style={styles.container1}>
-        <Text style={styles.txt1}>Đăng nhập</Text>
-      </View>
-      <View style={styles.container2} >
-        <Text style={styles.txt2}>Nhập số điện thoại</Text>
-        <Text></Text>
-        <Text>Dùng số điện thoại để đăng nhập hoặc đăng ký tài khoản tại OneHousing Pro</Text>
-        <TextInput 
-          style={styles.textf}
-          placeholder="Nhập số điện thoại"
-          keyboardType = "phone-pad"
-          value={textInput}
-          onChangeText={handleTextChange}
-        />
-        <Text style={[styles.msg,{color : textColor,}]}>{message}</Text>
-      </View>
-      <Button 
-        title ="Tiếp tục"
-        onPress={handlePress} 
-      
-      />
-      <StatusBar style="auto" />
-    </KeyboardAvoidingView>
+      <KeyboardAvoidingView style={styles.kbAview}>
+        
+        <View style={styles.container2} >
+          <Text style={styles.txt2}>Nhập số điện thoại</Text>
+          <Text></Text>
+          <Text>Dùng số điện thoại để đăng nhập hoặc đăng ký tài khoản tại OneHousing Pro</Text>
+          <TextInput 
+            style={styles.textf}
+            placeholder="Nhập số điện thoại"
+            keyboardType="phone-pad"
+            value={textInput}
+            onChangeText={handleTextChange}
+          />
+          <Text style={{ color: textColor }}>{message}</Text>
+        </View>
+        <Button title="Tiếp tục" style ={styles.buttonCustom} onPress={handlePress} />
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
 
+function HomeScreen({ navigation }) {
+  return (
+    <SafeAreaView style={styles.container}>
+      
+      <View style={styles.container1}>
+        <Image source={require('./assets/Img/R.png')} style={{ width: 200, height: 200 }} />
+        <Text style={styles.txt1}>Welcome to Home Screen</Text>
+        <Button title="Go to Login" onPress={() => navigation.navigate('Login')} />
+      </View>
+    </SafeAreaView>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator 
+            initialRouteName="Home"
+            screenOptions={{
+              headerTitleAlign: 'center', // Căn giữa tiêu đề của màn hình
+            }}
+      >
+        <Stack.Screen name="Home" alignItems = 'center' component={HomeScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
 const styles = StyleSheet.create({
-  kbAview:{
-    flex:1,
-    position:'absolute',
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'top',
-    top: 13,    
-    bottom: 22,
-    width: '100%',
-    height: '100%',
-    left:5,
-  },
   container: {
     flex: 1,
-    position:'absolute',
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'top',
-    top: 10,    
-    bottom: 22,
-    width: '100%',
-    height: '100%',
+    backgroundColor: '#fff',
+  },
+  kbAview: {
+    flex: 1,
   },
   container1: {
-    flex: 0.2,
-    backgroundColor: 'white',
-    alignItems: 'flex-start',
-    justifyContent: 'top',
-    width: '100%',
-    borderBottomWidth: 1,
-    borderColor: 'rgba(0,0,0,0.1)'
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  txt1: {
+    fontSize: 24,
+    fontWeight: 'bold',
   },
   container2: {
-    flex: 0.4,
-    backgroundColor: 'white',
-    alignItems: 'flex-start',
-    justifyContent: 'top',
-    width: '100%',
+    padding: 16,
   },
-  img1:{
-    flex:1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  txt2: {
+    fontSize: 18,
   },
-  textf:{
-    backgroundColor:'white',
-    width:'70%',
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.2)',
+  textf: {
+    borderBottomWidth: 1,
+    marginBottom: 10,
   },
-  txt1:{
-    fontSize:30,
-  },
-  txt2:{
-    fontSize:20,
-  },
-  msg:{
-    fontSize:15,
-    
+  buttonCustom: {
+    backgroundColor: 'rgb(0,0,0)',
+    color: 'white',
+    padding: 10,
   }
 });
