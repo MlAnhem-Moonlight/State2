@@ -5,3 +5,5 @@
 ![MobileState](Screenshot_20250218_132740_ExpoGo.jpg)
 ![MobileState](Screenshot_20250218_132748_ExpoGo.jpg)
 ![MobileState](Screenshot_20250218_132758_ExpoGo.jpg)
+![MobileState](Screenshot_20250225_140400_ExpoGo.jpg)
+![MobileState](Screenshot_20250225_140406_ExpoGo.jpg)
