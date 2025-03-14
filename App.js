@@ -21,7 +21,7 @@ export default function App() {
               }}
             >
               {isLoggedIn ? (
-                <Stack.Screen name="Main" component={BottomTab} />
+                <Stack.Screen name="Main" component={BottomTab}  options={{ headerShown: false }}/>
               ) : (
                 <Stack.Screen name="Auth" component={AuthStack} options={{ headerShown: false }} />
               )}
