@@ -17,11 +17,11 @@ export default function App() {
             <Stack.Navigator
               initialRouteName={isLoggedIn ? "BottomTab" : "Auth"}
               screenOptions={{
-                headerTitleAlign: 'center',
+                headerTitleAlign: 'center', // Căn giữa tiêu đề của màn hình
               }}
             >
               {isLoggedIn ? (
-                <Stack.Screen name="Main" component={BottomTab} options={{ headerShown: false }}/>
+                <Stack.Screen name="Main" component={BottomTab}  options={{ headerShown: false }}/>
               ) : (
                 <Stack.Screen name="Auth" component={AuthStack} options={{ headerShown: false }} />
               )}

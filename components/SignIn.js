@@ -1,5 +1,6 @@
+// filepath: /C:/MyFlow/Mobile/m_31_12/components/SignIn.js
 import React, { useState, useContext } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
 import { AppContext } from '../context/AppContext';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -8,7 +9,7 @@ const SignIn = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const { setIsLoggedIn, userProfile } = useContext(AppContext);
+  const { setIsLoggedIn } = useContext(AppContext);
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,13 +34,11 @@ const SignIn = ({ navigation }) => {
     }
 
     if (valid) {
-      // Kiểm tra thông tin đăng nhập với dữ liệu trong AsyncStorage
-      if (username === userProfile.email && password === userProfile.password) {
-        setIsLoggedIn(true);
-        Alert.alert('Thành công', 'Đăng nhập thành công');
-      } else {
-        Alert.alert('Lỗi', 'Email hoặc mật khẩu không đúng');
-      }
+      // Nếu đăng nhập thành công, gọi setIsLoggedIn(true)
+      setIsLoggedIn(true);
+      alert('Đăng nhập thành công');
+    } else {
+      alert('Đăng nhập thất bại');
     }
   };
 
