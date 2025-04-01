@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { AppContext } from '../context/AppContext';
 
 const SignUp = ({ navigation }) => {
   const [username, setUsername] = useState('');
@@ -7,6 +8,7 @@ const SignUp = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const { updateUserProfile } = useContext(AppContext);
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,12 +37,25 @@ const SignUp = ({ navigation }) => {
     }
 
     if (valid) {
-      // Handle sign-up logic here
-      alert('Đăng ký thành công');
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'SignIn' }],
+      // Lưu thông tin đăng ký vào AsyncStorage
+      updateUserProfile({
+        username,
+        email,
+        password
       });
+      Alert.alert(
+        'Thành công',
+        'Đăng ký thành công',
+        [
+          {
+            text: 'OK',
+            onPress: () => navigation.reset({
+              index: 0,
+              routes: [{ name: 'SignIn' }],
+            })
+          }
+        ]
+      );
     }
   };
 

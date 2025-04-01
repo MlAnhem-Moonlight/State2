@@ -3,7 +3,7 @@ import { View, Text, Button, StyleSheet, Image, TouchableOpacity } from 'react-n
 import { AppContext } from '../context/AppContext';
 
 const ProfileScreen = ({ navigation }) => {
-  const { setIsLoggedIn } = useContext(AppContext);
+  const { setIsLoggedIn, userProfile } = useContext(AppContext);
 
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -14,10 +14,10 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.header} />
       <Image style={styles.avatar} source={require('../assets/Img/Saul_Goodman.png')} />
       <View style={styles.body}>
-        <Text style={styles.name}>Nguyễn Nhật Quang</Text>
+        <Text style={styles.name}>{userProfile.username}</Text>
         <Text style={styles.info}>Game Designer</Text>
         <Text style={styles.description}>
-          Tôi là Quang.
+          Tôi là {userProfile.username}.
         </Text>
         <TouchableOpacity style={styles.buttonContainer} onPress={handleLogout}>
           <Text style={styles.buttonText}>Sign Out</Text>

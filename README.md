@@ -1,9 +1,9 @@
-### BÀI TẬP Context API
+### BÀI TẬP Async
 ## Nguyễn NHẬT QUANG - 22810310087
-![MobileState](Screenshot_20250318_133600_ExpoGo.jpg)
-![MobileState](Screenshot_20250318_133606_ExpoGo.jpg)
-![MobileState](Screenshot_20250318_133707_ExpoGo.jpg)
-![MobileState](Screenshot_20250318_133713_ExpoGo.jpg)
-![MobileState](Screenshot_20250318_135214_ExpoGo.jpg)
-![MobileState](Screenshot_20250318_135223_ExpoGo.jpg)
-![MobileState](Screenshot_20250318_135228_ExpoGo.jpg)
+![ProfileScreen](Screenshot_20250401_131615_ExpoGo.jpg)
+![SignInScreen](Screenshot_20250401_131653_ExpoGo.jpg)
+![AlertFail](Screenshot_20250401_131703_ExpoGo.jpg)
+![AlertSuccess](Screenshot_20250401_131714_ExpoGo.jpg)
+# Async Account
+![Code](AysncStorage.PNG)
+
