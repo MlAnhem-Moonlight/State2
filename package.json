@@ -1,5 +1,5 @@
 {
-  "name": "m_31_12",
+  "name": "project13",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -9,14 +9,19 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-navigation/native": "^7.0.14",
-    "@react-navigation/stack": "^7.1.1",
-    "expo": "~52.0.23",
-    "expo-status-bar": "~2.0.0",
+    "@react-native-community/masked-view": "^0.1.11",
+    "@react-navigation/bottom-tabs": "^7.3.9",
+    "@react-navigation/native": "^7.1.5",
+    "@react-navigation/stack": "^7.2.9",
+    "expo": "~52.0.43",
+    "expo-status-bar": "~2.0.1",
     "react": "18.3.1",
-    "react-native": "0.76.5",
-    "react-native-safe-area-context": "^5.2.0",
-    "react-native-screens": "^4.9.0"
+    "react-native": "0.76.9",
+    "react-native-gesture-handler": "^2.25.0",
+    "react-native-reanimated": "^3.17.2",
+    "react-native-safe-area-context": "^5.3.0",
+    "react-native-screens": "^4.10.0",
+    "react-native-vector-icons": "^10.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
